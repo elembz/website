@@ -1,0 +1,205 @@
+:root {
+  --dark-color: #0e0e0f;
+  --light-color: #f5e8e0;
+  --accent-color: #5a79d4;
+  --border-color: rgba(0, 0, 0, 0.4);
+  --foreground-color: var(--dark-color);
+  --background-color: var(--light-color);
+
+  --shadow-spread: 12px;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+
+  --animation-duration: 300ms;
+  --animation-easing: ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-color: var(--light-color);
+    --background-color: var(--dark-color);
+    --border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+html {
+  font-size: 18px;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: neue-haas-unica, sans-serif;
+  line-height: 150%;
+  font-weight: 400;
+  min-height: 100%;
+  margin: 0;
+}
+
+p {
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+}
+
+small {
+  opacity: 0.6;
+  font-size: 0.7rem;
+}
+
+a {
+  --outline-offset-horizontal: -0.25rem;
+  --outline-offset-vertical: -0.2rem;
+  color: var(--foreground-color);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  transition: text-decoration-color var(--animation-duration) var(--animation-easing);
+}
+
+@media(hover: hover) {
+  a:hover {
+    text-decoration-color: transparent;
+  }
+}
+
+a, button {
+  display: inline-block;
+  position: relative;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  text-decoration: none;
+}
+
+a:focus-visible::before,
+button:focus-visible::before {
+  content: '';
+  position: absolute;
+  top: var(--outline-offset-vertical);
+  left: var(--outline-offset-horizontal);
+  right: var(--outline-offset-horizontal);
+  bottom: var(--outline-offset-vertical);
+  border: 3px solid var(--accent-color);
+  border-radius: 10px;
+}
+
+button:focus-visible {
+  --outline-offset-vertical: -0.3rem;
+  --outline-offset-horizontal: -0.325rem;
+}
+
+button {
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  padding: 0.5rem 0.8em;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  outline: none;
+  box-shadow: 0 0 var(--shadow-spread) 2px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: box-shadow var(--animation-duration) var(--animation-easing),
+              border-color var(--animation-duration) var(--animation-easing);
+  margin-top: 0.75rem;
+}
+
+@media(hover: hover) {
+  button:hover {
+    --shadow-spread: 4px;
+    --border-color: var(--foreground-color);
+  }
+}
+
+.container {
+  max-width: 520px;
+  padding: 1rem 1.5rem 2rem 1.5rem;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  width: 100px;
+  height: auto;
+  display: block;
+  box-sizing: border-box;
+  border: 2px var(--foreground-color) solid;
+  background-color: var(--light-color);
+  margin-bottom: 1.5rem;
+  margin-left: -6px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.fun-fact {
+  font-size: 0.8em;
+  margin-top: 2rem;
+  width: 275px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  align-self: center;
+
+  p {
+    margin-top: 0;
+  }
+}
+
+.fun-fact--ready {
+  opacity: 1;
+}
+
+.fun-fact__current {
+  opacity: 0;
+  animation: fadeInDown var(--animation-duration) var(--animation-easing) forwards;
+  animation-delay: calc(var(--animation-duration) / 2);
+}
+
+.fun-fact__previous {
+  position: absolute;
+  animation: fadeOutDown 500ms var(--animation-easing) forwards;
+  animation-delay: 0;
+}
+
+@media(min-width: 1024px) {
+  .fun-fact {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 100%;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px var(--border-color) solid;
+  }
+}
+
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
