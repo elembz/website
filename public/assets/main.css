@@ -148,10 +148,6 @@ footer {
   align-items: center;
   opacity: 0;
   align-self: center;
-
-  p {
-    margin-top: 0;
-  }
 }
 
 .fun-fact--ready {
@@ -168,6 +164,10 @@ footer {
   position: absolute;
   animation: fadeOutDown 500ms var(--animation-easing) forwards;
   animation-delay: 0;
+}
+
+.fun-fact p {
+  margin-top: 0;
 }
 
 @media(min-width: 1024px) {
