@@ -46,7 +46,7 @@ p {
 }
 
 small {
-  opacity: 0.6;
+  opacity: 0.7;
   font-size: 0.7rem;
 }
 
@@ -117,7 +117,7 @@ button {
 
 .container {
   max-width: 520px;
-  padding: 1rem 1.5rem 2rem 1.5rem;
+  padding: 3rem 1.5rem;
 }
 
 .profile-picture {
