@@ -1,7 +1,18 @@
+class ClassNameManager {
+
+  constructor(namespace) {
+    this.namespace = namespace
+  }
+
+  modifier = name => `${this.namespace}--${name}`
+  element  = name => `${this.namespace}__${name}`
+}
+
 class FunFactMachine {
 
   constructor(options) {
-    this.options = options
+    this.options    = options
+    this.classNames = new ClassNameManager(options.namespace)
     this.init()
   }
 
@@ -10,7 +21,7 @@ class FunFactMachine {
 
   init = () => {
     this.container = document.createElement(this.options.tagName)
-    this.container.classList.add(this.options.namespace)
+    this.container.classList.add(this.classNames.namespace)
     this.container.style.setProperty(
       '--animation-duration',
       `${this.options.animationDuration}ms`
@@ -25,7 +36,7 @@ class FunFactMachine {
     const button       = document.createElement('button')
     button.type        = 'submit'
     button.textContent = this.options.prompt
-    button.classList.add(`${this.options.namespace}__button`)
+    button.classList.add(this.classNames.element('button'))
     form.appendChild(button)
 
     this.insertNewFact()
@@ -35,14 +46,14 @@ class FunFactMachine {
       this.insertNewFact()
     })
 
-    this.container.classList.add(`${this.options.namespace}--ready`)
+    this.container.classList.add(this.classNames.modifier('ready'))
   }
 
   insertNewFact = () => {
     const index = this.nextIndex()
 
     const textContainer = document.createElement('p')
-    textContainer.classList.add(`${this.options.namespace}__current`)
+    textContainer.classList.add(this.classNames.element('current'))
 
     textContainer.textContent = `${this.options.prefix} ${this.options.facts[index]}`
     this.container.insertBefore(textContainer, this.container.firstChild)
@@ -55,8 +66,8 @@ class FunFactMachine {
   }
 
   removeCurrentFact = () => {
-    const textContainer = this.container.querySelector(`.${this.options.namespace}__current`)
-    textContainer.classList.add(`${this.options.namespace}__previous`)
+    const textContainer = this.container.querySelector(`.${this.classNames.element('current')}`)
+    textContainer.classList.add(this.classNames.element('previous'))
     textContainer.setAttribute('aria-hidden', true)
     setTimeout(() => {
       textContainer.remove()
