@@ -163,7 +163,7 @@ footer {
 
 .fun-fact__previous {
   position: absolute;
-  animation: fadeOutDown 500ms var(--animation-easing) forwards;
+  animation: fadeOutDown var(--animation-duration) var(--animation-easing) forwards;
   animation-delay: 0;
 }
 
