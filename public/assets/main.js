@@ -19,12 +19,13 @@ class FunFactMachine {
     this.options.parent.appendChild(this.container)
 
     const form = document.createElement('form')
+    form.setAttribute('title', this.options.title)
     this.container.appendChild(form)
 
     const button       = document.createElement('button')
     button.type        = 'submit'
     button.textContent = this.options.prompt
-    button.classList.add('fun-fact__button')
+    button.classList.add(`${this.options.namespace}__button`)
     form.appendChild(button)
 
     this.insertNewFact()
@@ -47,7 +48,7 @@ class FunFactMachine {
     this.container.insertBefore(textContainer, this.container.firstChild)
 
     this.currentIndex = index
-    if (this.viewed.length < this.options.facts.length) {
+    if (!this.viewed.includes(index)) {
       this.viewed.push(index)
     }
 
@@ -63,10 +64,10 @@ class FunFactMachine {
   }
 
   nextIndex = () => {
-    if (this.viewed.length >= this.options.facts.length) {
-      return this.currentIndex === this.options.facts.length - 1 ? 0 : this.currentIndex + 1
-    } else {
+    if (this.viewed.length < this.options.facts.length) {
       return this.newRandomIndex()
+    } else {
+      return this.currentIndex === this.options.facts.length - 1 ? 0 : this.currentIndex + 1
     }
   }
 
@@ -88,6 +89,7 @@ new FunFactMachine({
 
   animationDuration: 500,
 
+  title:  'Willekeurige weetjes',
   prefix: 'P.S.',
   prompt: 'Nog iets weten?',
 
