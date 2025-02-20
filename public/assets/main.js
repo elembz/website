@@ -78,7 +78,8 @@ class FunFactMachine {
     if (this.viewed.length < this.options.facts.length) {
       return this.newRandomIndex()
     } else {
-      return this.currentIndex === this.options.facts.length - 1 ? 0 : this.currentIndex + 1
+      const currentIndex = this.viewed.indexOf(this.currentIndex)
+      return currentIndex === this.viewed.length - 1 ? 0 : currentIndex + 1
     }
   }
 
